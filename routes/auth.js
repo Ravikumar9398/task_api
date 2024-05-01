@@ -10,7 +10,7 @@ require("dotenv/config");
 // creating jwt token
 
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWTSECRET);
+  return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
 // Post method fro new user credentials
