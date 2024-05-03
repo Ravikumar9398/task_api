@@ -9,7 +9,7 @@ router.post("/add", async (req, res) => {
   // checking register user
   const isEmployee = await User.findOne({ employee_id });
   if (!isEmployee) {
-    return res.send({
+    return res.json({
       status: 400,
       message: "Employee not found",
     });
@@ -20,7 +20,7 @@ router.post("/add", async (req, res) => {
     isEmployee.employment_type === "Admin" ||
     isEmployee.employment_type === "Manager";
   if (!isAdmin) {
-    return res.send({
+    return res.json({
       status: 400,
       message: "You are not authorized to add task",
     });
@@ -29,7 +29,7 @@ router.post("/add", async (req, res) => {
   // checking the task already exists
   const isTaskExists = await Tasks.findOne({ title });
   if (isTaskExists) {
-    return res.send({
+    return res.json({
       status: 400,
       message: "Task Already Exists",
     });
@@ -42,7 +42,7 @@ router.post("/add", async (req, res) => {
   });
   await task.save();
 
-  res.send({
+  res.json({
     status: 200,
     message: "Task added successfully",
   });
@@ -51,7 +51,7 @@ router.post("/add", async (req, res) => {
 // Get all Tasks
 router.get("/", async (req, res) => {
   const tasks = await Tasks.find();
-  res.send({
+  res.json({
     status: 200,
     data: tasks,
   });
@@ -63,12 +63,12 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const task = await Tasks.findById(id);
   if (!task) {
-    return res.send({
+    return res.json({
       status: 400,
       message: "Task not found",
     });
   }
-  res.send({
+  res.json({
     status: 200,
     data: task,
   });
@@ -85,14 +85,14 @@ router.put("/update/:id", async (req, res) => {
     status,
   });
   if (!task) {
-    return res.send({
+    return res.json({
       status: 400,
       message: "Task not found",
     });
   }
 
   await task.save();
-  res.send({
+  res.json({
     status: 200,
     message: "Task updated successfully",
   });
@@ -108,7 +108,7 @@ router.delete("/delete/:id", async (req, res) => {
     // checking register user
     const isEmployee = await User.findOne({ employee_id });
     if (!isEmployee) {
-      return res.send({
+      return res.json({
         status: 400,
         message: "Employee not found",
       });
@@ -119,7 +119,7 @@ router.delete("/delete/:id", async (req, res) => {
       isEmployee.employment_type === "Admin" ||
       isEmployee.employment_type === "Manager";
     if (!isAdmin) {
-      return res.send({
+      return res.json({
         status: 400,
         message: "You are not authorized to add task",
       });
@@ -127,12 +127,12 @@ router.delete("/delete/:id", async (req, res) => {
 
     const task = await Tasks.findByIdAndDelete(id);
     if (!task) {
-      return res.send({
+      return res.json({
         status: 400,
         message: "Task not found",
       });
     }
-    res.send({
+    res.json({
       status: 200,
       message: "Task deleted successfully",
     });

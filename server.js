@@ -10,7 +10,7 @@ app.use(express.json());
 require("./config/config");
 
 app.get("/", (req, res) => {
-  res.send("For API Data Went to End Point ( / tasks / )  ");
+  res.json("For API Data Went to End Point ( / tasks / )  ");
 });
 
 app.use("/user", auth);
