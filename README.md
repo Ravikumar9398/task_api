@@ -1,4 +1,4 @@
-# EpiMax Backend Assement
+# EpiMax Backend Assessment
 
 I was build a the RESTful API endpoints for handling CRUD operations on tasks, including task creation, update, and retrieval Using Node.js.
 
